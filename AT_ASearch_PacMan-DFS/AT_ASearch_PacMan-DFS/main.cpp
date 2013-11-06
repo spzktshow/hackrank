@@ -24,7 +24,7 @@ int getIndex(int ri, int ci, int c)
 
 bool isAllow(int ri, int ci, vector <string> grid)
 {
-	char tile = getTile(ri, ri, grid);
+	char tile = getTile(ri, ci, grid);
 	if (tile == road) return true;
 	return false;
 }
@@ -38,9 +38,34 @@ bool isInternal(int ri, int ci, int r, int c)
 	return false;
 }
 
+/******根据索引获取ri******/
+int getRi(int index, int c)
+{
+	return (int)index / c;
+}
+
+/*******根据缩影获取ci********/
+int getCi(int index, int c)
+{
+	return  index % c;
+}
+
 int calculateH(int startRi, int startCi, int endRi, int endCi)
 {
 	return (abs(endRi - startRi) + abs(endCi - startCi));
+}
+
+/********计算从结束的索引到开始的索引一共有几步*********/
+int calculateTotalStep(vector <int> fatherList, int endIndex)
+{
+	int count = 0;
+	int index = endIndex;
+	while(fatherList[index] != -1)
+	{
+		count ++;
+		index = fatherList[index];
+	}
+	return count;
 }
 
 /****r,c grid的row和col****/
@@ -55,23 +80,21 @@ void dfs( int r, int c, int pacman_r, int pacman_c, int food_r, int food_c, vect
 	/***总共的tile数***/
 	const unsigned int total = r * c;
 	/**初始化openList closeList**/
-	int index;
-	for (index = 0; index < total; index ++)
+	int index = 0;
+	for (index; index < total; index ++)
 	{
-		openList[index] = false;
-		closeList[index] = false;
-		fList[index] = 0;
-		gList[index] = 0;
-		hList[index] = 0;
-		fatherList[index] = -1;
+		openList.push_back(false);
+		closeList.push_back(false);
+		fList.push_back(0);
+		gList.push_back(0);
+		hList.push_back(0);
+		fatherList.push_back(-1);
 	}
 	//search
 	int search_r, search_c, check_r, check_c, f, g, h;
 	search_r = pacman_r;
 	search_c = pacman_c;
-	int index = getIndex(search_r, search_c, c);
-	gList[index] = 0;
-	
+	index = getIndex(search_r, search_c, c);
 
 	bool isAllowValue;
 	int checkIndex;
@@ -90,7 +113,7 @@ void dfs( int r, int c, int pacman_r, int pacman_c, int food_r, int food_c, vect
 				g = gList[index] + 1;
 				h = calculateH(check_r, check_c, food_r, food_c);
 				f = g + h;
-				if (openList[index] == true || closeList[index] == true)
+				if (openList[checkIndex] == true || closeList[checkIndex] == true)
 				{
 					if (fList[checkIndex] > f)
 					{
@@ -114,7 +137,7 @@ void dfs( int r, int c, int pacman_r, int pacman_c, int food_r, int food_c, vect
 		check_c = search_c + 1;
 		if (check_c < c)//right
 		{
-			check_r = search_r = r;
+			check_r = search_r;
 			isAllowValue = isAllow(check_r, check_c, grid);
 			if (isAllowValue)
 			{
@@ -122,7 +145,7 @@ void dfs( int r, int c, int pacman_r, int pacman_c, int food_r, int food_c, vect
 				g = gList[index] + 1;
 				h = calculateH(check_r, check_c, food_r, food_c);
 				f = g + h;
-				if (openList[index] == true || closeList[index] == true)
+				if (openList[checkIndex] == true || closeList[checkIndex] == true)
 				{
 					if (fList[checkIndex] > f)
 					{
@@ -146,7 +169,7 @@ void dfs( int r, int c, int pacman_r, int pacman_c, int food_r, int food_c, vect
 		check_r = search_r + 1;
 		if (check_r < r)//bottom
 		{
-			check_c = c;
+			check_c = search_c;
 			isAllowValue = isAllow(check_r, check_c, grid);
 			if (isAllowValue)
 			{
@@ -154,7 +177,7 @@ void dfs( int r, int c, int pacman_r, int pacman_c, int food_r, int food_c, vect
 				g = gList[index] + 1;
 				h = calculateH(check_r, check_c, food_r, food_c);
 				f = g + h;
-				if (openList[index] == true || closeList[index] == true)
+				if (openList[checkIndex] == true || closeList[checkIndex] == true)
 				{
 					if (fList[checkIndex] > f)
 					{
@@ -178,7 +201,7 @@ void dfs( int r, int c, int pacman_r, int pacman_c, int food_r, int food_c, vect
 		check_c = search_c - 1;
 		if (check_c >= 0)//left
 		{
-			check_r = r;
+			check_r = search_r;
 			isAllowValue = isAllow(check_r, check_c, grid);
 			if (isAllowValue)
 			{
@@ -186,7 +209,7 @@ void dfs( int r, int c, int pacman_r, int pacman_c, int food_r, int food_c, vect
 				g = gList[index] + 1;
 				h = calculateH(check_r, check_c, food_r, food_c);
 				f = g + h;
-				if (openList[index] == true || closeList[index] == true)
+				if (openList[checkIndex] == true || closeList[checkIndex] == true)
 				{
 					if (fList[checkIndex] > f)
 					{
@@ -214,16 +237,39 @@ void dfs( int r, int c, int pacman_r, int pacman_c, int food_r, int food_c, vect
 		}
 		openList[index] = false;
 		f = -1;
-		for (int i = 0; i < fList.size(); i ++)
+		for (int i = 0; i < openList.size(); i ++)
 		{
-			if (f == -1 || fList.at(i) < f)
+			if (openList.at(i) == true)
 			{
-				index = i;
-				f = fList.at(i);
+				if (f == -1 || fList.at(i) < f)
+				{
+					index = i;
+					f = fList.at(i);
+				}
 			}
 		}
+		search_r = getRi(index, c);
+		search_c = getCi(index, c);
 	}
-
+	 /***获取列表***/
+	index = getIndex(food_r, food_c, c);
+	int totalStep = calculateTotalStep(fatherList, index);
+	std::cout << totalStep << std::endl;
+	/***用于反转的fatherList****/
+	vector <int> convertFatherList;
+	convertFatherList.push_back(index);
+	int fatherIndex = fatherList[index];
+	while(fatherIndex != -1)
+	{
+		convertFatherList.push_back(fatherIndex);
+		fatherIndex = fatherList[fatherIndex];
+	}
+	int j = convertFatherList.size() - 1;
+	for (j; j >= 0; j --)
+	{
+		index = convertFatherList.at(j);
+		std::cout << getRi(index, c) << " " << getCi(index, c) << endl;
+	}
 }
 
 int main(void)
@@ -243,7 +289,7 @@ int main(void)
 
 	dfs( r, c, pacman_r, pacman_c, food_r, food_c, grid);
 
-	int endInt;
-	cin >> endInt;
+	int t;
+	cin >> t;
 	return 0;
 }

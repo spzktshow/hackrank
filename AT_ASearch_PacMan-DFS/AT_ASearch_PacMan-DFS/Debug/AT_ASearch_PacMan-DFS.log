@@ -1,14 +1,15 @@
-﻿Build started 2013/10/25 16:38:19.
-     1>Project "D:\HackerRank\AT_ASearch_PacMan-DFS\AT_ASearch_PacMan-DFS\AT_ASearch_PacMan-DFS.vcxproj" on node 2 (Build target(s)).
+﻿Build started 2013/10/28 15:10:35.
+     1>Project "D:\cocos2dx\hackrank\AT_ASearch_PacMan-DFS\AT_ASearch_PacMan-DFS\AT_ASearch_PacMan-DFS.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          D:\Program Files (x86)\VC\bin\CL.exe /c /I"D:\cocos2dx\whosyourdaddy\supports\cocos2d-x-2.2.0\projects\MapPro\Classes\moonSugar" /I"D:\cocos2dx\whosyourdaddy\supports\cocos2d-x-2.2.0\projects\MapPro\Classes\map" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
          main.cpp
-     1>d:\hackerrank\at_asearch_pacman-dfs\at_asearch_pacman-dfs\main.cpp(61): warning C4552: '|' : operator has no effect; expected operator with side-effect
+     1>d:\cocos2dx\hackrank\at_asearch_pacman-dfs\at_asearch_pacman-dfs\main.cpp(84): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\cocos2dx\hackrank\at_asearch_pacman-dfs\at_asearch_pacman-dfs\main.cpp(240): warning C4018: '<' : signed/unsigned mismatch
        Link:
-         D:\Program Files (x86)\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\HackerRank\AT_ASearch_PacMan-DFS\Debug\AT_ASearch_PacMan-DFS.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\HackerRank\AT_ASearch_PacMan-DFS\Debug\AT_ASearch_PacMan-DFS.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\HackerRank\AT_ASearch_PacMan-DFS\Debug\AT_ASearch_PacMan-DFS.lib" /MACHINE:X86 Debug\main.obj
-         AT_ASearch_PacMan-DFS.vcxproj -> D:\HackerRank\AT_ASearch_PacMan-DFS\Debug\AT_ASearch_PacMan-DFS.exe
-     1>Done Building Project "D:\HackerRank\AT_ASearch_PacMan-DFS\AT_ASearch_PacMan-DFS\AT_ASearch_PacMan-DFS.vcxproj" (Build target(s)).
+         D:\Program Files (x86)\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\cocos2dx\hackrank\AT_ASearch_PacMan-DFS\Debug\AT_ASearch_PacMan-DFS.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\cocos2dx\hackrank\AT_ASearch_PacMan-DFS\Debug\AT_ASearch_PacMan-DFS.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\cocos2dx\hackrank\AT_ASearch_PacMan-DFS\Debug\AT_ASearch_PacMan-DFS.lib" /MACHINE:X86 Debug\main.obj
+         AT_ASearch_PacMan-DFS.vcxproj -> D:\cocos2dx\hackrank\AT_ASearch_PacMan-DFS\Debug\AT_ASearch_PacMan-DFS.exe
+     1>Done Building Project "D:\cocos2dx\hackrank\AT_ASearch_PacMan-DFS\AT_ASearch_PacMan-DFS\AT_ASearch_PacMan-DFS.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.92
+Time Elapsed 00:00:01.27
